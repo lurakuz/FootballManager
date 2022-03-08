@@ -78,7 +78,7 @@ public class PlayerController {
     }
 
     @GetMapping("/transfer-player/{id}")
-    public ResponseEntity<PlayerDto> transferPlayerInfo(@PathVariable Long id)
+    public ResponseEntity<PlayerDto> transferPlayerPage(@PathVariable Long id)
             throws EntityNotFoundException{
         log.info(LOG_MESSAGE, "transferPlayerInfo");
         return ResponseEntity.ok(playerService.getPlayerById(id));
