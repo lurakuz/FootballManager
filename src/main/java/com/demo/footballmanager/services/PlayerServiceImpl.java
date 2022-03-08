@@ -98,21 +98,12 @@ public class PlayerServiceImpl implements PlayerService {
         log.info("Fetched player by id. player = {}", player);
         var oldTeam = player.getTeam();
 
-        if (oldTeam.getId().equals(transferDetails.getTeamId()))
-            return playerMapper.map(player);
-
         log.info("Fetching player's new team by id");
         var newTeam = teamRepository.findById(transferDetails.getTeamId())
                 .orElseThrow(() -> new EntityNotFoundException(Team.class, "id", transferDetails.getTeamId().toString()));
         log.info("Fetched team by id. team = {}", newTeam);
 
-        log.info("Calculating transfer amount");
-        LocalDate today = LocalDate.now();
-        Period age = Period.between(player.getCareerStartDate(), today);
-        int months = age.getMonths();
-        int transferPrice = months * 100000 / player.getAge();
-        int commission = transferPrice / oldTeam.getTransferCommission();
-        int fullPrice = transferPrice + commission;
+        var fullPrice = calculatingTransferAmmount(player, oldTeam);
 
         if (newTeam.getAccountAmount() < fullPrice)
             throw new FootballManagerValidationException("Not enough money to transfer player!");
@@ -123,10 +114,10 @@ public class PlayerServiceImpl implements PlayerService {
         newTeam.setAccountAmount(newTeam.getAccountAmount() - fullPrice);
         player.setTeam(newTeam);
 
-        var transferedPlayer = playerRep.save(player);
-        log.info("Player ({} {}) is transferred to {}", transferedPlayer.getFirstName(), transferedPlayer.getLastName(),
+        var transferredPlayer = playerRep.save(player);
+        log.info("Player ({} {}) is transferred to {}", transferredPlayer.getFirstName(), transferredPlayer.getLastName(),
                 newTeam.getTeamName());
-        return playerMapper.map(transferedPlayer);
+        return playerMapper.map(transferredPlayer);
     }
 
     private Player findPlayer(Long playerId) {
@@ -138,5 +129,15 @@ public class PlayerServiceImpl implements PlayerService {
         log.info("Validating player existence by id");
         if (!playerRep.existsById(playerId))
             throw new EntityNotFoundException(Player.class, "id", playerId.toString());
+    }
+
+    private int calculatingTransferAmmount(Player player, Team oldTeam){
+        log.info("Calculating transfer amount");
+        LocalDate today = LocalDate.now();
+        Period age = Period.between(player.getCareerStartDate(), today);
+        int months = age.getMonths();
+        int transferPrice = months * 100000 / player.getAge();
+        int commission = transferPrice / oldTeam.getTransferCommission();
+        return transferPrice + commission;
     }
 }
