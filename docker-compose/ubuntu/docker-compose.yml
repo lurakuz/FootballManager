@@ -3,22 +3,22 @@ version: '3.5'
 services:
   mysql:
     hostname: mysql
-    image: mysql:8
+    image: mysql:latest
     ports:
       - "3306:3306"
     volumes:
       - ~/apps/mysql:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=S3cret
-      - MYSQL_PASSWORD=An0thrS3crt
-      - MYSQL_USER=citizix_user
-      - MYSQL_DATABASE=citizix_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_USER=root
+      - MYSQL_DATABASE=DB
     networks:
       - test-net
 
   employee-backend:
-    container_name: employee-backend
-    image: employee-backend:latest
+    container_name: football-manager
+    image: football-manager-backend:latest
     depends_on:
       - mysql
     ports:

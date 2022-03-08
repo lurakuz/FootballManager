@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+FROM openjdk:11
+ADD target/football-manager-mysql.jar football-manager-mysql.jar
+EXPOSE 3306
+ENTRYPOINT ["java", "-jar", "football-manager-mysql.jar"]

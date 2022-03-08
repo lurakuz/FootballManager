@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.11 (Oracle Corporation)"
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.14 (Ubuntu)"
 )
 @Component
 public class PlayerMapperImpl implements PlayerMapper {
