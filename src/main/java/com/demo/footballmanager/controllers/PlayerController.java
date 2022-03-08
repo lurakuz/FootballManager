@@ -77,7 +77,14 @@ public class PlayerController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/transfer-player")
+    @GetMapping("/transfer-player/{id}")
+    public ResponseEntity<PlayerDto> transferPlayerInfo(@PathVariable Long id)
+            throws EntityNotFoundException{
+        log.info(LOG_MESSAGE, "transferPlayerInfo");
+        return ResponseEntity.ok(playerService.getPlayerById(id));
+    }
+
+    @PostMapping("/transfer-player/{id}")
     public ResponseEntity<PlayerDto> transferPlayer(@RequestBody TransferDetailsDto transferDetails) {
         log.info(LOG_MESSAGE, "transferPlayer");
         return ResponseEntity.ok(playerService.transferPlayer(transferDetails));

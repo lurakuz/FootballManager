@@ -32,7 +32,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public List<PlayerDto> getAllPlayers() {
         log.info("Fetching all players");
-        List<Player> players = (List<Player>) playerRep.findAll();
+        var players = (List<Player>) playerRep.findAll();
         log.info("Fetched all players. size = {}", players.size());
         return playerMapper.map(players);
     }

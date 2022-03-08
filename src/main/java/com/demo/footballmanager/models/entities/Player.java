@@ -1,9 +1,9 @@
 package com.demo.footballmanager.models.entities;
 
-import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Exclude;
+import lombok.ToString.Exclude;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@EqualsAndHashCode
+@ToString
 @Table(name = "players")
 public class Player {
     @Id
