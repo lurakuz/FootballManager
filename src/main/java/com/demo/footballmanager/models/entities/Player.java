@@ -1,13 +1,14 @@
 package com.demo.footballmanager.models.entities;
 
+import lombok.*;
 import lombok.ToString.Exclude;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity

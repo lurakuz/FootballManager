@@ -1,7 +1,7 @@
 INSERT INTO teams (team_name, country, city, transfer_commission, account_amount)
-VALUES ('Manchester United', 'England', 'Manchester', 3, 1000000),
-       ('Chelsea', 'England', 'London', 6, 1000000),
-       ('Liverpool', 'England', 'Merseyside', 9, 1000000);
+VALUES ('Manchester United', 'England', 'Manchester', 3, 10000000),
+       ('Chelsea', 'England', 'London', 6, 10000000),
+       ('Liverpool', 'England', 'Merseyside', 9, 10000000);
 
 INSERT INTO players (first_name, last_name, age, career_start_date, team_id)
 VALUES ('Cristiano', 'Ronaldo', 37, '1992-01-01', 1),

@@ -27,27 +27,34 @@ public class PlayerMapperImpl implements PlayerMapper {
             return null;
         }
 
-        PlayerDto playerDto = new PlayerDto();
+        Long teamId = null;
+        Long id = null;
+        Integer age = null;
+        String lastName = null;
+        String firstName = null;
+        String careerStartDate = null;
 
-        Long id = playerTeamId( player );
-        if ( id != null ) {
-            playerDto.setTeamId( id );
+        Long id1 = playerTeamId( player );
+        if ( id1 != null ) {
+            teamId = id1;
         }
         if ( player.getId() != null ) {
-            playerDto.setId( player.getId() );
+            id = player.getId();
         }
         if ( player.getAge() != null ) {
-            playerDto.setAge( player.getAge() );
+            age = player.getAge();
         }
         if ( player.getLastName() != null ) {
-            playerDto.setLastName( player.getLastName() );
+            lastName = player.getLastName();
         }
         if ( player.getFirstName() != null ) {
-            playerDto.setFirstName( player.getFirstName() );
+            firstName = player.getFirstName();
         }
         if ( player.getCareerStartDate() != null ) {
-            playerDto.setCareerStartDate( DateTimeFormatter.ISO_LOCAL_DATE.format( player.getCareerStartDate() ) );
+            careerStartDate = DateTimeFormatter.ISO_LOCAL_DATE.format( player.getCareerStartDate() );
         }
+
+        PlayerDto playerDto = new PlayerDto( id, age, lastName, firstName, careerStartDate, teamId );
 
         return playerDto;
     }

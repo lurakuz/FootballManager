@@ -71,7 +71,8 @@ public class TeamServiceImpl implements TeamService {
         log.info("Team is deleted. teamId = {}", id);
     }
 
-    private void validateTeamExistence(Long id) {
+    @Override
+    public void validateTeamExistence(Long id) {
         log.info("Validating team existence by id");
         if (!teamRep.existsById(id))
             throw new EntityNotFoundException(Team.class, "id", id.toString());

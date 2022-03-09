@@ -1,0 +1,40 @@
+version: '3.5'
+
+services:
+  mysql:
+    hostname: mysql
+    restart: unless-stopped
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ~/apps/mysql2:/var/lib/mysql
+    environment:
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=my_secret_pwd
+      - MYSQL_ROOT_PASSWORD=my_secret_pwd
+      - MYSQL_DATABASE=football_manager
+    networks:
+      - football-manager-mysql
+
+  football-manager-backend:
+    container_name: football-manager-backend
+    image: football-manager-backend:latest
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/football_manager?useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "my_secret_pwd"
+      SPRING_PROFILES_ACTIVE : docker
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    networks:
+      - football-manager-mysql
+
+networks:
+  football-manager-mysql:
+    driver: bridge

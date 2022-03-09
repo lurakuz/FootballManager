@@ -103,7 +103,7 @@ public class PlayerServiceImpl implements PlayerService {
                 .orElseThrow(() -> new EntityNotFoundException(Team.class, "id", transferDetails.getTeamId().toString()));
         log.info("Fetched team by id. team = {}", newTeam);
 
-        var fullPrice = calculatingTransferAmmount(player, oldTeam);
+        var fullPrice = calculatingTransferAmount(player, oldTeam);
 
         if (newTeam.getAccountAmount() < fullPrice)
             throw new FootballManagerValidationException("Not enough money to transfer player!");
@@ -120,18 +120,21 @@ public class PlayerServiceImpl implements PlayerService {
         return playerMapper.map(transferredPlayer);
     }
 
-    private Player findPlayer(Long playerId) {
+    @Override
+    public Player findPlayer(Long playerId) {
         return playerRep.findById(playerId)
                 .orElseThrow(() -> new EntityNotFoundException(Player.class, "id", playerId.toString()));
     }
 
-    private void validatePlayerExistence(Long playerId) {
+    @Override
+    public void validatePlayerExistence(Long playerId) {
         log.info("Validating player existence by id");
         if (!playerRep.existsById(playerId))
             throw new EntityNotFoundException(Player.class, "id", playerId.toString());
     }
 
-    private int calculatingTransferAmmount(Player player, Team oldTeam){
+    @Override
+    public int calculatingTransferAmount(Player player, Team oldTeam){
         log.info("Calculating transfer amount");
         LocalDate today = LocalDate.now();
         Period age = Period.between(player.getCareerStartDate(), today);

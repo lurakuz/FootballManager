@@ -19,4 +19,6 @@ public interface TeamService {
     void deleteTeam(Long id);
 
     PageableTeamDto getAllTeamsPageable(Pageable pageable);
+
+    void validateTeamExistence(Long id);
 }
