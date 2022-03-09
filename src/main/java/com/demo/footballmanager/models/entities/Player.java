@@ -5,7 +5,6 @@ import lombok.ToString.Exclude;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor

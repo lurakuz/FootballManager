@@ -49,6 +49,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public TeamDto saveTeam(TeamDto teamDto) {
         log.info("Creating team");
+        if(teamDto.getTransferCommission()>10){teamDto.setTransferCommission(10);}
         var savedTeam = teamRep.save(teamMapper.map(teamDto));
         log.info("Team is created. Team = {}", savedTeam);
         return teamMapper.map(savedTeam);
@@ -58,6 +59,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamDto updateTeam(TeamDto teamDto) {
         validateTeamExistence(teamDto.getId());
         log.info("Updating team");
+        if(teamDto.getTransferCommission()>10){teamDto.setTransferCommission(10);}
         var updatedTeam = teamRep.save(teamMapper.map(teamDto));
         log.info("Team is updated. Updated team = {}", updatedTeam);
         return teamMapper.map(updatedTeam);

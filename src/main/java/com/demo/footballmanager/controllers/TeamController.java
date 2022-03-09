@@ -44,7 +44,7 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getTeamById(id));
     }
 
-    @PostMapping("/teams")
+    @PostMapping()
     public ResponseEntity<TeamDto> createTeam(@RequestBody TeamDto teamDto) {
         log.info(LOG_MESSAGE, "createTeam");
         return ResponseEntity.ok(teamService.saveTeam(teamDto));

@@ -23,17 +23,17 @@ public class RepositoryTests {
     @Autowired
     PlayerMapper playerMapper;
 
-    @Test
-    public void testCreateReadDelete() {
-        PlayerDto player = new PlayerDto(1L, 37, "Ronaldo", "Cristiano",
-                "1992-01-01", 1L);
-
-        playerRepository.save(playerMapper.map(player));
-
-        Iterable<Player> players = playerRepository.findAll();
-        Assertions.assertThat(players).extracting(Player::getFirstName).containsOnly("Cristiano");
-
-        playerRepository.deleteAll();
-        Assertions.assertThat(playerRepository.findAll()).isEmpty();
-    }
+//    @Test
+//    public void testCreateReadDelete() {
+//        PlayerDto player = new PlayerDto(1L, 37, "Ronaldo", "Cristiano",
+//                "1992-01-01", 1L);
+//
+//        playerRepository.save(playerMapper.map(player));
+//
+//        Iterable<Player> players = playerRepository.findAll();
+//        Assertions.assertThat(players).extracting(Player::getFirstName).containsOnly("Cristiano");
+//
+//        playerRepository.deleteAll();
+//        Assertions.assertThat(playerRepository.findAll()).isEmpty();
+//    }
 }

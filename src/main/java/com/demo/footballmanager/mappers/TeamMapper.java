@@ -23,6 +23,10 @@ public interface TeamMapper {
 
     @AfterMapping
     default void mapPlayerIds(@MappingTarget TeamDto teamDto, Team team) {
-        teamDto.setPlayerIds(team.getPlayers().stream().map(Player::getId).collect(Collectors.toList()));
+        if (teamDto.getPlayerIds() == null){
+            teamDto.setPlayerIds(null);
+        } else {
+            teamDto.setPlayerIds(team.getPlayers().stream().map(Player::getId).collect(Collectors.toList()));
+        }
     }
 }
